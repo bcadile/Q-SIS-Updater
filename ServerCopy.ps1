@@ -1,29 +1,43 @@
+#set params
 param (
     [string]$envPrompt = $( Read-Host "Which environment are you updating, production(p) or testing(t)?"
      )
  )
 
-#Establish environment and gather machine list
- #$envPrompt = Read-Host -Prompt 'Which environment are you updating, production(p) or testing(t)?'
-if ($envPrompt -eq "p") {
-    "Production environment set"
-    $computers = Get-Content ".\servers\production.txt"
-}
+#retrieve and parse config values
+Get-Content ".\config.txt" | foreach-object -begin {$h=@{}} -process { $k = [regex]::split($_,'='); if(($k[0].CompareTo("") -ne 0) -and ($k[0].StartsWith("[") -ne $True)) { $h.Add($k[0], $k[1]) } }
+
+#set configs to vars
+$conf_training = $h.training
+$conf_production = $h.production
+$conf_testServers = $h.testServers 
+$conf_prodServers = $h.prodServers 
+$conf_payload = $h.payloadPath
+
 if ($envPrompt -eq "t") {
     "Testing environment set"
-    $computers = Get-Content ".\servers\testing.txt"
+    #$computers = Get-Content ".\servers\testing.txt"
+    $computers = Get-Content $conf_testServers
+}
+if ($envPrompt -eq "p") {
+    "Production environment set"
+    #$computers = Get-Content ".\servers\production.txt"
+    $computers = Get-Content $conf_prodServers
 }
 
 # Set source location
-$source = ".\payloads\*"
+#$source = ".\payloads\*"
+$source = $conf_payload
 
 # Set destination
 if ($envPrompt -eq 't'){
-    $dest = "c$\training\"
+    #$dest = "c$\training\"
+    $dest = $conf_training
 }
 
 if ($envPrompt -eq 'p'){
-    $dest = "c$\production\"
+    #$dest = "c$\production\"
+    $dest = $conf_production
 }
 
 #confirm processing of production environment

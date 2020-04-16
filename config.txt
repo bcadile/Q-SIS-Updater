@@ -1,0 +1,10 @@
+[environment]
+training="c$\training\"
+production="c$\production\"
+
+[appPaths]
+testServers=".\servers\testing.txt"
+prodServers=".\servers\production.txt"
+
+[payloadPath]
+payloadPath=".\payloads\*"
