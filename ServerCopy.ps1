@@ -1,6 +1,6 @@
 #set params
 param (
-    [string]$envPrompt = $( Read-Host "Which environment are you updating, production(p) or testing(t)?"
+    [string]$envPrompt = $( Read-Host "Which environment are you updating, production(p), testing(t) or reporting(r)?"
      )
  )
 
@@ -10,8 +10,12 @@ Get-Content ".\config.txt" | foreach-object -begin {$h=@{}} -process { $k = [reg
 #set configs to vars
 $conf_training = $h.training
 $conf_production = $h.production
+$conf_reporting = $h.reporting
+
 $conf_testServers = $h.testServers 
 $conf_prodServers = $h.prodServers 
+$conf_reportServers = $h.reportServers 
+
 $conf_payload = $h.payloadPath
 
 if ($envPrompt -eq "t") {
@@ -25,8 +29,12 @@ if ($envPrompt -eq "p") {
     $computers = Get-Content $conf_prodServers
 }
 
+if ($envPrompt -eq "r") {
+    "Report environment set"
+    $computers = Get-Content $conf_reportServers
+}
+
 # Set source location
-#$source = ".\payloads\*"
 $source = $conf_payload
 
 # Set destination
@@ -40,8 +48,13 @@ if ($envPrompt -eq 'p'){
     $dest = $conf_production
 }
 
+if ($envPrompt -eq 'r'){
+    #$dest = "c$\production\"
+    $dest = $conf_reporting
+}
+
 #confirm processing of production environment
-if ($envPrompt -eq "p"){
+if ($envPrompt -eq "p" -or $envPrompt -eq "r" ){
     $envConf = Read-Host -Prompt 'Are you sure you want to copy to your production environment? (y/n)'
     if ($envConf -eq 'y'){
         $execute = "y"
@@ -55,7 +68,7 @@ if ($envPrompt -eq "p"){
 if ($execute -eq "y") {
     foreach ($computer in $computers) {
         if (test-Connection -Cn $computer -quiet) {
-            Copy-Item $source -Destination \\$computer\$dest -Recurse -Force
+            Copy-Item $source -Destination \\$computer\$dest -Recurse -Force -Verbose
             "Files copied to $computer..."
         } else {
             "$computer is not online"

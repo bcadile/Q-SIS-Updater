@@ -1,10 +1,12 @@
 [environment]
-training="c$\training\"
-production="c$\production\"
+training=c$\training\
+production=c$\production\
+reporting=c$\production\
 
 [appPaths]
-testServers=".\servers\testing.txt"
-prodServers=".\servers\production.txt"
+testServers=servers\testing.txt
+prodServers=servers\production.txt
+reportServers=servers\reporting.txt
 
 [payloadPath]
-payloadPath=".\payloads\*"
+payloadPath=.\payloads\*
