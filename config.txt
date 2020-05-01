@@ -10,3 +10,8 @@ reportServers=servers\reporting.txt
 
 [payloadPath]
 payloadPath=.\payloads\*
+
+[config]
+verbose=y
+logging=y
+logPath=logs\qcopy.log
