@@ -1,2 +1,0 @@
-1. User prompting for production or testing environment
-2. logging
