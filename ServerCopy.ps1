@@ -29,9 +29,8 @@ function write_log {
     param($msg)
     if ($conf_logging -eq "y"){
         "$(Get-Date -Format G) : $msg" | Out-File -FilePath $conf_logpath -Append -Force
-    } else {
-        "$(Get-Date -Format G) : $msg"
-    }
+    } 
+        Write-Host "$(Get-Date -Format G) : $msg"
 }
 
 #logging begins

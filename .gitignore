@@ -2,3 +2,4 @@ logs/qcopy.log
 servers/production.txt
 servers/reporting.txt
 servers/testing.txt
+payloads/*
