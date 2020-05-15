@@ -3,3 +3,4 @@ servers/production.txt
 servers/reporting.txt
 servers/testing.txt
 payloads/*
+!payloads/filesGoHere.txt
