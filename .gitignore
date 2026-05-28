@@ -1,6 +1,18 @@
-logs/qcopy.log
-servers/production.txt
-servers/reporting.txt
-servers/testing.txt
-payloads/*
-!payloads/filesGoHere.txt
+# Ignore the contents of Payloads, deployables and Backups but keep the directories if they exist
+Payloads/*
+!Payloads/.gitkeep
+deployables/*
+!deployables/.gitkeep
+
+Backups/*
+!Backups/.gitkeep
+
+# Ignore the Logs folder
+Logs/*
+!Logs/.gitkeep
+
+# Ignore the plans folder entirely
+plans/
+
+# IMPORTANT: You should usually ignore your config file so you don't commit credentials to GitHub!
+config.json

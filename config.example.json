@@ -1,0 +1,24 @@
+{
+  "Settings": {
+    "BackupDirectory": "C:\\Path\\To\\Backups",
+    "LogDirectory": "C:\\Path\\To\\Logs",
+    "SqlExecutionTimeoutSeconds": 600
+  },
+  "TargetServers": [
+    {
+      "Name": "ExampleWebServer01",
+      "Type": "Web",
+      "DeploymentPath": "\\\\server_name\\c$\\inetpub\\wwwroot\\QSIS"
+    }
+  ],
+  "Databases": [
+    {
+      "Name": "ExampleDB",
+      "Server": "ExampleSQLServer",
+      "Authentication": "Windows",
+      "Username": "",
+      "Password": "",
+      "ConnectionString": "Server=ExampleSQLServer;Database=ExampleDB;Integrated Security=True;TrustServerCertificate=True"
+    }
+  ]
+}
